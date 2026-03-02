@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter For Ayushi ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importing beautiful fonts for the letter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="data:,">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fdf2f8;
+            /* Soft pink initial background */
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            transition: background-color 1.5s ease;
+        }
+
+        /* When letter opens, make background deep romantic maroon */
+        body.letter-open {
+            background-color: #2e0f15;
+            background-image: radial-gradient(circle at center, #4a1525 0%, #1a080c 100%);
+        }
+
+        /* Typography */
+        .handwritten {
+            font-family: 'Caveat', cursive;
+        }
+
+        .fancy-title {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(3deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.4));
+                transform: scale(1);
+            }
+
+            50% {
+                filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.8));
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes paperUnfold {
+            0% {
+                transform: scaleY(0.03) translateY(-5px);
+                opacity: 0;
+                filter: brightness(0.6);
+                transform-origin: top center;
+            }
+
+            25% {
+                transform: scaleY(0.4) translateY(0);
+                opacity: 0.6;
+                filter: brightness(0.85);
+                transform-origin: top center;
+            }
+
+            75% {
+                transform: scaleY(1.03);
+                opacity: 1;
+                filter: brightness(1.05);
+                transform-origin: top center;
+            }
+
+            100% {
+                transform: scaleY(1) translateY(0);
+                opacity: 1;
+                filter: brightness(1);
+                transform-origin: top center;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0.9);
+                pointer-events: none;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes fallingPetal {
+            0% {
+                transform: translate(0, -10vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(20vw, 110vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Cat Screen Elements */
+        .cat-container {
+            animation: float 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cat-container:hover {
+            transform: scale(1.1);
+        }
+
+        .tap-text {
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* Screens */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #screen-letter {
+            display: none;
+            padding: 40px 20px 120px 20px;
+            /* Added significant bottom padding for wax seal */
+            align-items: flex-start;
+            min-height: 100vh;
+            perspective: 1000px;
+            /* For 3D tilt */
+        }
+
+        /* Realistic Premium Letter Paper (Old Antique Look) */
+        .realistic-paper {
+            background-color: #eaddb6;
+            background-image:
+                /* Realistic horizonal folds */
+                linear-gradient(to bottom, transparent 33%, rgba(101, 67, 33, 0.1) 33.1%, transparent 33.2%),
+                linear-gradient(to bottom, transparent 66%, rgba(101, 67, 33, 0.1) 66.1%, transparent 66.2%),
+                /* Textures */
+                radial-gradient(circle at center, transparent 50%, rgba(101, 67, 33, 0.15) 85%, rgba(101, 67, 33, 0.5) 100%),
+                radial-gradient(circle at 15% 25%, rgba(101, 67, 33, 0.12) 0%, transparent 25%),
+                radial-gradient(circle at 85% 75%, rgba(101, 67, 33, 0.18) 0%, transparent 35%),
+                linear-gradient(rgba(101, 67, 33, 0.06) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 2rem;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.7),
+                inset 0 0 80px rgba(101, 67, 33, 0.4),
+                inset 0 0 15px rgba(101, 67, 33, 0.7);
+            border: 1px solid rgba(101, 67, 33, 0.5);
+            position: relative;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 4px;
+            z-index: 10;
+            /* Cut top right corner for the fold */
+            clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+            transition: transform 0.1s ease-out;
+            /* Smooth tilt */
+            transform-style: preserve-3d;
+            transform-origin: top center;
+            /* Crucial for paper-unfold to work top-down */
+        }
+
+        /* The actual folded corner piece */
+        .realistic-paper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: #d4c391;
+            /* Slightly darker fold */
+            background: linear-gradient(45deg, #d4c391 50%, rgba(101, 67, 33, 0.2) 50%);
+            box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.3);
+            border-bottom-left-radius: 4px;
+            z-index: 11;
+        }
+
+        /* Letter Ink (Faded Brown for Old Look) */
+        .ink-text {
+            color: #3b2716;
+            /* Deep sepia/brown ink */
+            text-shadow: 0px 0px 1px rgba(59, 39, 22, 0.4);
+        }
+
+        .poetry-divider {
+            text-align: center;
+            color: #8b5a2b;
+            /* Faded rusty color */
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+            opacity: 0.7;
+        }
+
+        /* Wax Seal */
+        .wax-seal {
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, #e63946, #900c19);
+            border-radius: 50%;
+            position: absolute;
+            bottom: -35px;
+            right: 40px;
+            box-shadow:
+                0 4px 10px rgba(0, 0, 0, 0.4),
+                inset 0 0 10px rgba(0, 0, 0, 0.5),
+                inset 0 0 4px rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #7a0813;
+            z-index: 20;
+        }
+
+        .wax-seal::after {
+            content: "A";
+            font-family: 'Dancing Script', cursive;
+            color: rgba(255, 200, 200, 0.8);
+            font-size: 35px;
+            font-weight: bold;
+            text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5), 1px 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .falling-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fallingPetal linear forwards;
+            filter: drop-shadow(0 0 5px rgba(255, 192, 203, 0.5));
+        }
+
+        .heart-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            animation: trailFade 1s ease-out forwards;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 20, 147, 0.8);
+        }
+
+        @keyframes trailFade {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) rotate(45deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heartBurst {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(var(--s));
+                opacity: 0;
+            }
+        }
+
+        .burst-heart {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            animation: heartBurst 1.5s ease-out forwards;
+            font-size: 2rem;
+        }
+
+        /* White Butterfly specific to name */
+        .white-butterfly {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10003;
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
+            color: white;
+        }
+
+        .dhanno-name {
+            position: relative;
+            display: inline-block;
+            color: #900c19;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes flyAroundName {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(var(--mx), var(--my)) rotate(var(--mr)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Butterfly Styles */
+        .butterfly {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10002;
+            font-size: 2rem;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4));
+        }
+
+        @keyframes flap {
+
+            0%,
+            100% {
+                transform: scaleX(1);
+            }
+
+            50% {
+                transform: scaleX(0.3);
+            }
+        }
+
+        .butterfly-inner {
+            display: inline-block;
+            animation: flap 0.2s infinite ease-in-out;
+        }
+
+        @keyframes flyAround {
+            0% {
+                transform: translate(-10vw, 110vh) rotate(30deg);
+            }
+
+            20% {
+                transform: translate(30vw, 70vh) rotate(-10deg);
+            }
+
+            40% {
+                transform: translate(80vw, 80vh) rotate(20deg);
+            }
+
+            60% {
+                transform: translate(50vw, 30vh) rotate(-20deg);
+            }
+
+            80% {
+                transform: translate(10vw, 10vh) rotate(10deg);
+            }
+
+            100% {
+                transform: translate(110vw, -10vh) rotate(40deg);
+            }
+        }
+
+        @media (max-width: 640px) {
+            #screen-letter {
+                padding: 20px 10px;
+            }
+
+            .realistic-paper {
+                padding: 30px 20px !important;
+            }
+
+            .wax-seal {
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                bottom: -25px;
+            }
+
+            .wax-seal::after {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SCREEN 1: The Cat -->
+    <div id="screen-cat" class="screen flex-col px-4 text-center z-20">
+        <h1 class="text-3xl md:text-4xl font-semibold text-pink-600 mb-8 handwritten drop-shadow-sm">
+            Dhanoooo ji ke liye ek chhotu sa message... 💖
+        </h1>
+
+        <div class="cat-container flex flex-col items-center justify-center bg-white p-8 rounded-full shadow-xl border-4 border-pink-100"
+            onclick="openLetter()">
+            <svg viewBox="0 0 512 512" width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M421.4 125.7c-9.1-12.8-23.7-20.4-39.3-20.4h-17.7c-7.3-43.1-44.5-75.3-89.6-75.3-45 0-82.3 32.2-89.6 75.3h-17.7c-15.6 0-30.2 7.6-39.3 20.4-13.4 18.9-15.2 43.5-4.8 63.9l12.7 24.8c-14.8 21.8-23.6 47.7-23.6 75.3 0 74.2 60.3 134.5 134.5 134.5s134.5-60.3 134.5-134.5c0-27.6-8.8-53.5-23.6-75.3l12.7-24.8c10.4-20.4 8.6-45-4.8-63.9z"
+                    fill="#fcd5ce" />
+                <path d="M256 30c-45 0-82.3 32.2-89.6 75.3h179.3C338.3 62.2 301 30 256 30z" fill="#ffb5a7" />
+                <path
+                    d="M375.9 144.1l-18.7-36.6c-4.4-8.6-13.3-14.1-23-14.1h-24.9c5.2 11.4 8.1 24.1 8.1 37.5 0 35.8-20.5 66.8-50.5 81.6 34.6 15 63 43.1 78.5 77.2 24.5-18.9 40.4-48.4 40.4-81.6 0-25.1-6.6-48.7-18.3-68.9l-11.6-22.7c-4.3-8.6-13.2-14.1-23-14.1z"
+                    fill="#f8edeb" />
+                <circle cx="205.5" cy="220" r="15" fill="#4a4e69" />
+                <circle cx="306.5" cy="220" r="15" fill="#4a4e69" />
+                <path d="M256 245c-15 0-25-10-25-10s10 15 25 15 25-15 25-15-10 10-25 10z" fill="#ff99c8" />
+                <path
+                    d="M256 265c-11.6 0-21.7 6.6-26.6 16.3-4.8-9.7-15-16.3-26.6-16.3-16.6 0-30 13.4-30 30 0 25 56.6 55 56.6 55s56.6-30 56.6-55c0-16.6-13.4-30-30-30z"
+                    fill="#ff4d6d" />
+            </svg>
+        </div>
+
+        <p
+            class="mt-8 text-xl md:text-2xl font-bold text-pink-500 tap-text tracking-wide bg-white/80 px-8 py-3 rounded-full border border-pink-200 shadow-sm">
+            👆 Mujhe Tap Karo!
+        </p>
+    </div>
+
+    <!-- SCREEN 2: The Realistic Letter -->
+    <div id="screen-letter" class="w-full">
+        <div class="realistic-paper p-10 md:p-14" id="actual-letter">
+
+            <!-- Letter Date -->
+            <div class="text-right mb-6">
+                <p class="handwritten text-xl md:text-2xl ink-text font-medium opacity-80">
+                    Aaj ki Taarikh,<br>
+                    Dil ke kisi kone se...
+                </p>
+            </div>
+
+            <!-- Letter Salutation -->
+            <div class="mb-8">
+                <h2 class="fancy-title text-4xl md:text-5xl font-bold" style="color: #900c19;">Dearest <span
+                        class="dhanno-name">Dhannoo</span>,</h2>
+                <h3 class="handwritten text-2xl md:text-3xl ink-text mt-1 font-semibold">(Meri Pyari )</h3>
+            </div>
+
+            <!-- The Beautiful Shayari -->
+            <div
+                class="handwritten ink-text text-2xl md:text-[28px] leading-[1.8] space-y-6 relative z-10 px-2 md:px-6">
+
+                <p>
+                    Kyun bewajah aashankao ki dhoop mein, sulagti rehti ho tum?<br>
+                    In nanhi si fuzool fikron mein, kyun uljhi rehti ho tum??<br>
+                    Maana ki waqt ki dosti kabhi thodi kamzor pad jati hai,<br>
+                    Magar kya itni sasti hai Bandhan hamari, jo palon mein bikhar jati hai?
+                </p>
+
+
+                <div class="poetry-divider">♡ ━ ━ ━ ━ ━ ♡</div>
+
+
+                <p>
+                    Gairon mein dhoondhogi toh aks mera dhundhla paogi,<br>
+                    Mujhe mujhi mein talasho, toh hi poora paogi.
+                    ❤️
+                </p>
+
+            </div>
+
+            <!-- Letter Signature -->
+            <div class="mt-16 text-right relative z-10">
+                <p class="handwritten text-2xl md:text-3xl ink-text mb-2">Sirf aur hamesha,</p>
+                <p class="fancy-title text-4xl md:text-5xl font-bold" style="color: #900c19;">Aapka Apna Aashu ♾️</p>
+            </div>
+
+            <!-- Wax Seal Decoration -->
+            <div class="wax-seal"></div>
+        </div>
+    </div>
+
+    <!-- Direct Local Audio Player -->
+    <audio id="bg-music" loop>
+        <!-- Yahan 'song.mp3' ki jagah apne gaane ki file ka naam likhein -->
+        <source src="bairan.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function heartBurst() {
+            const icons = ['❤️', '💖', '✨', '💕', '💗', '💝', '🌸'];
+            for (let i = 0; i < 40; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'burst-heart';
+                heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+
+                // Random destination
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 100 + Math.random() * 400;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist;
+                const s = 0.5 + Math.random() * 1.5;
+
+                heart.style.setProperty('--tx', `${tx}px`);
+                heart.style.setProperty('--ty', `${ty}px`);
+                heart.style.setProperty('--s', s);
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 1500);
+            }
+        }
+
+        function openLetter() {
+            const catScreen = document.getElementById('screen-cat');
+            const letterScreen = document.getElementById('screen-letter');
+            const actualLetter = document.getElementById('actual-letter');
+            const bgMusic = document.getElementById('bg-music');
+
+            // 1. Show the letter container first
+            letterScreen.style.display = 'flex';
+
+            // 2. Change background to dark romantic
+            document.body.classList.add('letter-open');
+
+            // 3. Animate the actual paper unfolding with 3D effect
+            actualLetter.style.animation = 'paperUnfold 1.8s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards';
+
+            // 4. Start falling petals effect and heart burst
+            startPetals();
+            heartBurst();
+            startButterflies();
+
+            // 5. Request Fullscreen
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(e => console.log("Fullscreen failed", e));
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            }
+
+            // 6. Play the romantic background music after a short delay
+            setTimeout(() => {
+                if (bgMusic) {
+                    bgMusic.loop = true; // Loop playback
+                    bgMusic.play().catch(error => console.log("Music play failed:", error));
+                }
+            }, 500);
+
+            // 6. Fade out the cat screen
+            catScreen.style.animation = 'fadeOut 0.8s forwards';
+
+            setTimeout(() => {
+                catScreen.style.display = 'none';
+            }, 800);
+        }
+
+        function startPetals() {
+            const symbols = ['🌸', '✨', '💖', '🥀', '💝', '💕', '💗', '💌', '❤️'];
+
+            setInterval(() => {
+                const petal = document.createElement('div');
+                petal.className = 'falling-element';
+
+                const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                const randomLeft = Math.random() * 100;
+                const randomDuration = 5 + Math.random() * 8;
+                const randomSize = 0.5 + Math.random() * 1.5;
+
+                petal.innerHTML = randomSymbol;
+                petal.style.left = `${randomLeft}vw`;
+                petal.style.animationDuration = `${randomDuration}s`;
+                petal.style.fontSize = `${randomSize}rem`;
+
+                document.body.appendChild(petal);
+
+                setTimeout(() => {
+                    petal.remove();
+                }, randomDuration * 1000);
+
+            }, 250);
+        }
+
+        // Interactive Heart Trail
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.15) return;
+            createTrail(e.clientX, e.clientY);
+            handleTilt(e);
+        });
+
+        function handleTilt(e) {
+            const paper = document.getElementById('actual-letter');
+            if (document.getElementById('screen-letter').style.display === 'flex') {
+                const x = e.clientX / window.innerWidth - 0.5;
+                const y = e.clientY / window.innerHeight - 0.5;
+                paper.style.transform = `rotateX(${y * 10}deg) rotateY(${x * 10}deg)`;
+            }
+        }
+
+        document.addEventListener('touchstart', (e) => {
+            createTrail(e.touches[0].clientX, e.touches[0].clientY);
+        });
+
+        function createTrail(x, y) {
+            const trail = document.createElement('div');
+            const icons = ['❤️', '💖', '✨', '💕', '💗'];
+            trail.className = 'heart-trail';
+            trail.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            trail.style.left = (x - 10) + 'px';
+            trail.style.top = (y - 10) + 'px';
+
+            document.body.appendChild(trail);
+
+            setTimeout(() => {
+                trail.remove();
+            }, 1000);
+        }
+
+        function startButterflies() {
+            const icons = ['🦋', '✨'];
+
+            const createButterfly = () => {
+                const b = document.createElement('div');
+                b.className = 'butterfly';
+                b.innerHTML = `<span class="butterfly-inner">${icons[0]}</span>`;
+
+                const duration = 6 + Math.random() * 6; // Faster flight (6s-12s)
+                const delay = Math.random() * 2; // Shorter initial delay
+
+                b.style.left = "-50px";
+                b.style.top = (Math.random() * 80 + 10) + "vh"; // Keep away from extreme edges
+                b.style.animation = `flyAround ${duration}s linear ${delay}s infinite`;
+
+                document.body.appendChild(b);
+
+                // DOM Cleanup: Remove after two full cycles to keep element count low
+                setTimeout(() => b.remove(), (duration + delay) * 2000);
+            };
+
+            // Initial burst
+            for (let i = 0; i < 4; i++) {
+                setTimeout(createButterfly, i * 300);
+            }
+
+            // Continuous spawn
+            setInterval(createButterfly, 1500);
+
+            // Special White Butterflies for Dhanno
+            setInterval(spawnWhiteButterflies, 2000);
+        }
+
+        function spawnWhiteButterflies() {
+            const names = document.querySelectorAll('.dhanno-name');
+            names.forEach(name => {
+                const rect = name.getBoundingClientRect();
+                for (let i = 0; i < 2; i++) {
+                    const wb = document.createElement('div');
+                    wb.className = 'white-butterfly';
+                    wb.innerHTML = `<span class="butterfly-inner">🦋</span>`;
+
+                    const startX = rect.left + rect.width / 2;
+                    const startY = rect.top + rect.height / 2;
+
+                    wb.style.left = startX + 'px';
+                    wb.style.top = startY + 'px';
+
+                    const mx = (Math.random() - 0.5) * 200;
+                    const my = (Math.random() - 0.5) * 200;
+                    const mr = Math.random() * 360;
+
+                    wb.style.setProperty('--mx', `${mx}px`);
+                    wb.style.setProperty('--my', `${my}px`);
+                    wb.style.setProperty('--mr', `${mr}deg`);
+
+                    wb.style.animation = `flyAroundName ${3 + Math.random() * 2}s ease-out forwards`;
+
+                    document.body.appendChild(wb);
+                    setTimeout(() => wb.remove(), 5000);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
